@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Account Details</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="header">
+			<div>InfoSuper Bank</div>
+			<div class="date-time" id="date-time"></div>
+		</div>
+
+		<div class="account-details-container">
+			<h1 id="welcome-message">Welcome back!</h1>
+			<p class="account-info">Account Number</p>
+			<h2 id="account-number">---</h2>
+			<p class="account-info">Account Balance</p>
+			<h2 id="account-balance">---</h2>
+			<button class="back-btn" onclick="goBack()">Go Back</button>
+		</div>
+
+		<script src="shared.js"></script>
+		<script>
+			const accountData = JSON.parse(sessionStorage.getItem("accountData"));
+			const transactions =
+				JSON.parse(sessionStorage.getItem("transactions")) || [];
+
+			function updateDateTime() {
+				const now = new Date();
+				document.getElementById("date-time").textContent = now.toLocaleString();
+			}
+			setInterval(updateDateTime, 1000);
+			updateDateTime();
+
+			function calculateUpdatedBalance() {
+				let updatedBalance = accountData.balance;
+				transactions.forEach((transaction) => {
+					if (transaction.includes("Withdrawn")) {
+						const amount = parseFloat(transaction.match(/\$(\d+)/)[1]);
+						updatedBalance -= amount;
+					}
+				});
+				return updatedBalance;
+			}
+
+			function updateAccountDetails() {
+				const accountData = JSON.parse(sessionStorage.getItem("accountData"));
+				if (!accountData) {
+					alert("No account data found! Redirecting to home page.");
+					window.location.href = "index.html";
+					return;
+				}
+
+				document.getElementById(
+					"welcome-message"
+				).textContent = `Welcome back, ${accountData.name}!`;
+				document.getElementById("account-number").textContent =
+					accountData.accountNumber || "Unknown";
+				document.getElementById(
+					"account-balance"
+				).textContent = `$${accountData.balance.toLocaleString()}`;
+			}
+
+			function goBack() {
+				window.location.href = "account.html";
+			}
+
+			updateAccountDetails();
+		</script>
+	</body>
+</html>

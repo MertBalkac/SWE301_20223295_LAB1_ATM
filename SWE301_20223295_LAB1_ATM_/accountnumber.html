@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Your Account Number</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <div class="header">
+        <div>InfoSuper Bank</div>
+        <div class="date-time" id="date-time"></div>
+    </div>
+
+    <div class="pin-container">
+        <div class="pin-section" style="position: relative;">
+            <h2 id="error-message" class="error-message"></h2> 
+            <h2>Enter your Account Number</h2>
+            <div id="account-display" class="pin-display">----------</div>
+            <div class="keypad">
+                <button onclick="enterAccountNumber(1)">1</button>
+                <button onclick="enterAccountNumber(2)">2</button>
+                <button onclick="enterAccountNumber(3)">3</button>
+                <button onclick="enterAccountNumber(4)">4</button>
+                <button onclick="enterAccountNumber(5)">5</button>
+                <button onclick="enterAccountNumber(6)">6</button>
+                <button onclick="enterAccountNumber(7)">7</button>
+                <button onclick="enterAccountNumber(8)">8</button>
+                <button onclick="enterAccountNumber(9)">9</button>
+                <button onclick="clearAccountNumber()">✕</button>
+                <button onclick="enterAccountNumber(0)">0</button>
+                <button class="submit-btn" onclick="validateAccountNumber()">✓</button>
+            </div>
+            <p class="pin-info">Account Numbers:<br>9876543210 for Mert Balkaç</p>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+<script>
+
+        const accounts = {
+            "9876543210": { name: "Mert Balkaç", pin: "5678", balance: 1000 },
+        };
+
+        let enteredAccountNumber = ""; 
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('date-time').textContent = now.toLocaleString();
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        function enterAccountNumber(number) {
+            if (enteredAccountNumber.length < 10) {
+                enteredAccountNumber += number;
+                updateAccountDisplay();
+            }
+        }
+
+        function updateAccountDisplay() {
+            const accountDisplay = document.getElementById("account-display");
+            accountDisplay.textContent = enteredAccountNumber.padEnd(10, "-");
+        }
+
+        function clearAccountNumber() {
+            enteredAccountNumber = "";
+            updateAccountDisplay();
+        }
+
+        function validateAccountNumber() {
+            const errorMessage = document.getElementById("error-message");
+            if (accounts[enteredAccountNumber]) {
+                errorMessage.style.visibility = "hidden"; 
+                sessionStorage.setItem("currentAccount", enteredAccountNumber);
+                window.location.href = "pin.html"; 
+            } else {
+                errorMessage.textContent = "Invalid Account Number. Please try again.";
+                errorMessage.style.visibility = "visible";
+                clearAccountNumber();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Your PIN</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <div class="header">
+        <div>InfoSuper Bank</div>
+        <div class="date-time" id="date-time"></div>
+    </div>
+
+    <div class="pin-container">
+        <div class="pin-section" style="position: relative;">
+            <h2 id="error-message" class="error-message"></h2> 
+            <h2>Enter your PIN</h2>
+            <div id="pin-display" class="pin-display">----</div>
+            <div class="keypad">
+                <button onclick="enterPin(1)">1</button>
+                <button onclick="enterPin(2)">2</button>
+                <button onclick="enterPin(3)">3</button>
+                <button onclick="enterPin(4)">4</button>
+                <button onclick="enterPin(5)">5</button>
+                <button onclick="enterPin(6)">6</button>
+                <button onclick="enterPin(7)">7</button>
+                <button onclick="enterPin(8)">8</button>
+                <button onclick="enterPin(9)">9</button>
+                <button onclick="clearPin()">✕</button>
+                <button onclick="enterPin(0)">0</button>
+                <button class="submit-btn" onclick="validatePin()">✓</button>
+            </div>
+            <p id="pin-info" class="pin-info"></p>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+<script>
+
+        const accounts = {
+            "9876543210": { name: "Mert Balkaç", pin: "5678", balance: 1000, accountNumber: "9876543210" },
+        };
+
+        let enteredPin = ""; 
+        const currentAccountNumber = sessionStorage.getItem("currentAccount"); 
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('date-time').textContent = now.toLocaleString();
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        function updatePinInfo() {
+            const pinInfo = document.getElementById("pin-info");
+            const currentAccount = accounts[currentAccountNumber];
+            if (currentAccount) {
+                pinInfo.textContent = `PIN: ${currentAccount.pin} for ${currentAccount.name}`;
+            } else {
+                pinInfo.textContent = "No account information available.";
+            }
+        }
+
+        function enterPin(number) {
+            if (enteredPin.length < 4) {
+                enteredPin += number;
+                updatePinDisplay();
+            }
+        }
+
+        function updatePinDisplay() {
+            const pinDisplay = document.getElementById("pin-display");
+            pinDisplay.textContent = "*".repeat(enteredPin.length).padEnd(4, "-");
+        }
+
+        function clearPin() {
+            enteredPin = "";
+            updatePinDisplay();
+        }
+
+        function validatePin() {
+            const errorMessage = document.getElementById("error-message");
+            const currentAccount = accounts[currentAccountNumber];
+            if (currentAccount && currentAccount.pin === enteredPin) {
+                errorMessage.style.visibility = "hidden"; 
+                sessionStorage.setItem("accountData", JSON.stringify({
+                    ...currentAccount,
+                    accountNumber: currentAccountNumber, 
+                }));
+                window.location.href = "account.html"; 
+            } else {
+                errorMessage.textContent = "Invalid PIN. Please try again.";
+                errorMessage.style.visibility = "visible"; 
+                clearPin();
+            }
+        }
+        updatePinInfo();
+    </script>
+</body>
+</html>

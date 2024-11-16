@@ -1,0 +1,444 @@
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #1b1e2c;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fbae42;
+    font-size: 24px;
+}
+
+.date-time {
+    font-size: 16px;
+    color: #a0aec0;
+}
+
+
+.content {
+    text-align: center;
+}
+
+.content h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.content p {
+    font-size: 18px;
+    color: #b0b3c5;
+    margin-bottom: 40px;
+}
+
+
+.card-slot {
+    width: 200px;
+    height: 120px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.card {
+    width: 120px;
+    height: 180px;
+    background: linear-gradient(to bottom, #ff9f43, #ff3e5f);
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 1s ease-in-out, top 1s ease-in-out;
+}
+
+
+.pin-container {
+    width: 800px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.pin-section {
+    text-align: center;
+}
+
+.pin-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.pin-display {
+    font-size: 28px;
+    letter-spacing: 10px;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-items: center;
+}
+
+.keypad button {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    background-color: #2d3748;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.keypad button:hover {
+    background-color: #444c5e;
+}
+
+.keypad button#clear {
+    background: linear-gradient(to bottom, #ff9f43, #ff3e5f);
+    color: #ffffff;
+}
+
+.keypad button#clear:hover {
+    opacity: 0.8;
+}
+
+.card-slot {
+    width: 200px;
+    height: 120px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.card {
+    width: 120px;
+    height: 180px;
+    background: linear-gradient(to bottom, #ff9f43, #ff3e5f);
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 1s ease-in-out, top 1s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+
+.card-text {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+
+.buttons-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center;
+    margin-top: 40px;
+}
+
+
+.button {
+    width: 250px;
+    height: 100px;
+    background-color: #2d3748;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.button:hover {
+    background-color: #444c5e;
+    transform: scale(1.05);
+}
+
+.button .icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+
+.withdraw-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+
+.amount-section {
+    text-align: center;
+}
+
+.amount-section h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.amount-section p {
+    font-size: 16px;
+    color: #b0b3c5;
+    margin-bottom: 20px;
+}
+
+.preset-amounts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    justify-items: center;
+}
+
+.preset-amounts button {
+    width: 120px;
+    height: 60px;
+    background-color: #2d3748;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    text-align: center;
+}
+
+.preset-amounts button:hover {
+    background-color: #444c5e;
+}
+
+
+.custom-amount-section {
+    text-align: center;
+}
+
+.custom-amount-section h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.amount-display {
+    font-size: 36px;
+    font-weight: bold;
+    color: #fbae42;
+    margin-bottom: 20px;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    justify-items: center;
+}
+
+.keypad button {
+    width: 60px;
+    height: 60px;
+    background-color: #2d3748;
+    border-radius: 10px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.keypad button:hover {
+    background-color: #444c5e;
+}
+
+.withdraw-btn {
+    margin-top: 20px;
+    width: 180px;
+    height: 50px;
+    font-size: 18px;
+    background: linear-gradient(to right, #ff9f43, #ff3e5f);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.withdraw-btn:hover {
+    opacity: 0.8;
+}
+
+
+.back-btn {
+    margin-top: 20px;
+    width: 180px;
+    height: 50px;
+    font-size: 18px;
+    background-color: #2d3748;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #444c5e;
+}
+
+
+#balance-display {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fbae42;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.submit-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    background: linear-gradient(to right, #ff9f43, #ff3e5f);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    opacity: 0.8;
+}
+
+.account-details-container {
+    text-align: center;
+    margin-top: 100px;
+    color: white;
+}
+
+
+.account-details-container h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+
+.account-info {
+    font-size: 18px;
+    color: #b0b3c5;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+
+.account-details-container h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+
+.back-btn {
+    margin-top: 30px;
+    width: 180px;
+    height: 50px;
+    font-size: 18px;
+    background-color: #2d3748;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #444c5e;
+}
+
+
+
+.error-message {
+    font-size: 16px;
+    color: red;
+    margin-bottom: 10px;
+    height: 20px; 
+    line-height: 20px; 
+    text-align: center;
+    position: absolute;
+    top: -80px; 
+    left: 0;
+    right: 0;
+    visibility: hidden; 
+}
+
+.pin-info {
+    font-size: 14px;
+    color: #b0b3c5;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.pin-display {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+
+.transactions-list {
+    margin-top: 20px;
+    text-align: left;
+    color: white;
+    font-size: 16px;
+    line-height: 1.6;
+}
+.transactions-list p {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #2d3748;
+    border-radius: 5px;
+    color: #fbae42;
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw Cash</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <div>InfoSuper Bank</div>
+        <div class="date-time" id="date-time"></div>
+    </div>
+
+    <div class="withdraw-container">
+        <div class="amount-section">
+            <h3 id="balance-display">Balance: $0</h3>
+            <h2>Instant Withdraw Amount</h2>
+            <p>Select specific amount for withdraw</p>
+            <div class="preset-amounts">
+                <button onclick="selectAmount(500)">500</button>
+                <button onclick="selectAmount(1000)">1000</button>
+                <button onclick="selectAmount(2000)">2000</button>
+                <button onclick="selectAmount(4000)">4000</button>
+                <button onclick="selectAmount(8000)">8000</button>
+                <button onclick="selectAmount(10000)">10000</button>
+            </div>
+        </div>
+
+        <div class="custom-amount-section">
+            <h2>Enter your Amount</h2>
+            <div id="amount-display" class="amount-display">0</div>
+            <div class="keypad">
+                <button onclick="enterAmount(1)">1</button>
+                <button onclick="enterAmount(2)">2</button>
+                <button onclick="enterAmount(3)">3</button>
+                <button onclick="enterAmount(4)">4</button>
+                <button onclick="enterAmount(5)">5</button>
+                <button onclick="enterAmount(6)">6</button>
+                <button onclick="enterAmount(7)">7</button>
+                <button onclick="enterAmount(8)">8</button>
+                <button onclick="enterAmount(9)">9</button>
+                <button onclick="clearAmount()">✕</button>
+                <button onclick="enterAmount(0)">0</button>
+            </div>
+            <button class="withdraw-btn" onclick="withdraw()">Withdraw</button>
+            <button class="back-btn" onclick="goBack()">Go Back</button>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+<script>
+
+        let enteredAmount = 0;
+
+        const accountData = JSON.parse(sessionStorage.getItem("accountData"));
+        if (!accountData) {
+            alert("No account data found! Redirecting to home page.");
+            window.location.href = "index.html";
+        }
+
+        function updateBalanceDisplay() {
+            const balanceDisplay = document.getElementById("balance-display");
+            balanceDisplay.textContent = `Balance: $${accountData.balance}`;
+        }
+
+        updateBalanceDisplay();
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('date-time').textContent = now.toLocaleString();
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        function selectAmount(amount) {
+            enteredAmount = amount;
+            updateAmountDisplay();
+        }
+
+        function enterAmount(number) {
+            enteredAmount = enteredAmount * 10 + number;
+            updateAmountDisplay();
+        }
+
+        function updateAmountDisplay() {
+            document.getElementById('amount-display').textContent = enteredAmount.toLocaleString();
+        }
+
+        function clearAmount() {
+            enteredAmount = 0;
+            updateAmountDisplay();
+        }
+
+        function addTransaction(description) {
+            let transactions = JSON.parse(sessionStorage.getItem("transactions"));
+            if (!transactions) {
+                transactions = []; 
+            }
+            transactions.push(`${new Date().toLocaleString()} - ${description}`);
+            sessionStorage.setItem("transactions", JSON.stringify(transactions));
+        }
+
+        function withdraw() {
+            if (enteredAmount > 0 && enteredAmount <= accountData.balance) {
+                accountData.balance -= enteredAmount;
+                sessionStorage.setItem("accountData", JSON.stringify(accountData)); 
+                addTransaction(`Withdrawn $${enteredAmount}`);
+                alert(`You have withdrawn $${enteredAmount}. Remaining balance: $${accountData.balance}`);
+                enteredAmount = 0;
+                updateAmountDisplay();
+                updateBalanceDisplay();
+            } else if (enteredAmount > accountData.balance) {
+                alert("Insufficient balance!");
+            } else {
+                alert("Please enter a valid amount.");
+            }
+        }
+
+        function goBack() {
+            window.location.href = "account.html";
+        }
+    </script>
+</body>
+</html>

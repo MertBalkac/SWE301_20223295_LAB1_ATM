@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Account Dashboard</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="header">
+			<div>InfoSuper Bank</div>
+			<div class="date-time" id="date-time"></div>
+		</div>
+
+		<div class="content">
+			<h1 id="welcome-message">Welcome back!</h1>
+			<div class="buttons-container">
+				<div class="button" onclick="goToAccountDetails()">
+					<span class="icon">👤</span>
+					<span>Account Details</span>
+				</div>
+
+				<div class="button" onclick="goToWithdraw()">
+					<span class="icon">💵</span>
+					<span>Withdraw Cash</span>
+				</div>
+
+				<div class="button" onclick="viewTransactions()">
+					<span class="icon">📜</span>
+					<span>View Transactions</span>
+				</div>
+
+				<div class="button" onclick="takeCardBack()">
+					<span class="icon">💳</span>
+					<span>Take Card Back</span>
+				</div>
+			</div>
+		</div>
+
+		<script src="shared.js"></script>
+		<script>
+			const accountData = JSON.parse(sessionStorage.getItem("accountData"));
+			if (!accountData) {
+				alert("No account data found! Redirecting to home page.");
+				window.location.href = "index.html";
+			}
+
+			document.getElementById(
+				"welcome-message"
+			).textContent = `Welcome back, ${accountData.name}!`;
+
+			function updateDateTime() {
+				const now = new Date();
+				document.getElementById("date-time").textContent = now.toLocaleString();
+			}
+			setInterval(updateDateTime, 1000);
+			updateDateTime();
+
+			function goToAccountDetails() {
+				window.location.href = "accountdetails.html"; 
+			}
+
+			function goToWithdraw() {
+				window.location.href = "withdraw.html"; 
+			}
+
+			function viewTransactions() {
+				window.location.href = "transactions.html"; 
+			}
+
+			function takeCardBack() {
+				alert(
+					"Your card has been returned. Thank you for using InfoSuper Bank!"
+				);
+				sessionStorage.removeItem("transactions"); 
+				sessionStorage.removeItem("accountData"); 
+				window.location.href = "index.html"; 
+			}
+		</script>
+	</body>
+</html>

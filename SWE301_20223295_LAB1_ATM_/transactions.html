@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <div class="header">
+        <div>InfoSuper Bank</div>
+        <div class="date-time" id="date-time"></div>
+    </div>
+
+    <div class="account-details-container">
+        <h1>Transaction History</h1>
+        <div id="transactions-list" class="transactions-list">
+        </div>
+        <button class="back-btn" onclick="goBack()">Go Back</button>
+    </div>
+
+    <script src="shared.js"></script>
+<script>
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('date-time').textContent = now.toLocaleString();
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        function loadTransactions() {
+            const transactions = JSON.parse(sessionStorage.getItem("transactions")) || [];
+            const transactionsList = document.getElementById("transactions-list");
+
+            if (transactions.length === 0) {
+                transactionsList.innerHTML = "<p>No transactions found.</p>";
+            } else {
+                transactionsList.innerHTML = transactions
+                    .map((transaction) => `<p>${transaction}</p>`)
+                    .join("");
+            }
+        }
+
+        function goBack() {
+            window.location.href = "account.html";
+        }
+        loadTransactions();
+    </script>
+</body>
+</html>
